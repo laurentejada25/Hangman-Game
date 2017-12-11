@@ -1,22 +1,35 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	
-	<title>Hangman-Game</title>
-	
-	<!-- <link rel="stylesheet" href="reset.css">
 
-	<link rel="stylesheet" type="text/css" href="style.css"> -->
+	<meta charset="UTF-8">
+	<title>Marvel Hangman</title>
+
+	<link href="assets/css/reset.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="assets/css/style.css" rel="stylesheet">
 
 </head>
-
-
 <body>
-<div id="word-chosen"></div>
-<div id="key-pressed"></div>
+<div class="jumbotron">
+	<header id="header">Marvel Hangman</header>
+</div>
+
+<div>
+	<h1>Marvel Hangman</h1>
+</div>
+
+<div id="container">
+	<button id="startButton">Click to start</button><br>
+	Current Word: <span id="theWord"></span><br>
+	<span id="letterBlanks"></span>
+	Wins: <span id="winTotal"></span><br>
+	Losses: <span id="lossCount"></span><br>
+	Lives Left: <span id="user-lives"></span><br>
+	Letters Guessed: <span id="lettersGuessed"></span><br>
+</div>
 
 <script src="assets/javascript/game.js"></script>
-</body>
 
+</body>
 </html>

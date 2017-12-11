@@ -1,0 +1,21 @@
+#header {
+	background-image: url('../images/marvelbackground.jpg');
+	height: 250px;
+
+}
+
+#container {
+	text-align: center;
+	font-size: 19px;
+}
+
+body {
+	background: lightgray;
+	color: darkred;
+}
+
+h1 {
+	text-align: center;
+	margin-top: -50px;
+	margin-bottom: 30px;
+}

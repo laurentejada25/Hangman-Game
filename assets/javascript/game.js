@@ -1,92 +1,90 @@
-//broad level understanding
-// wordbank a word will be selected
-//display the word with _ instead of letters
-//1. user is going to click a key
-//is the key correct
-//if all the letters are guessed they win
-//if they run out of guesses they lose
+var wordBank =["mutants", "hulk", "wolverine"]
+var wins = 0;
+var losses = 0;
+var correct = 0;
+var lives = 15;
+var lettersGuessed = [];
+var letterBlanks = [];
+var word = wordBank[Math.floor(Math.random() * wordBank.length)];
+
+var startButton = document.getElementById("startButton");
 
 
-//Begin to write some more specific comments
-//wordbank would be an array
-//pick a random word from the array
 
-//variables
-//wins, losses, guesses left, chosen word, word bank, guessed letters
+function gameFunctions() {
+	if (letterBlanks.indexOf("_") === -1) {
+		wins++;
+		// alert("You win!");
+	} else {
+		losses++;
+		// alert("You lose.")
+	}
+	
+	document.getElementById("winCount").innerHTML = wins;
+	document.getElementById("lossCount").innerHTML = losses;
 
-//diplsay the word (function)
+	//Let's play again!
+	restartTheGame();
+	}
 
-//some piece of code for when a user clicks a keyboard key( RPS)
-//comparison for if the key is right
-//update the letters on the screen
-//if they guess the whole word they win
-//starts over
-//new word
-//wins goes up
-
-//comparison for if its wrong
-//lose a guess
-//if theyre out of guesses they lose
-//if(guesses <= 0) -->
-
-
-// variables listed here
-var wordBank = ["Mutants", "Avengers", "Wolverine", "Hulk"];
-
-var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "_"];
-
-var guessedLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "_"]; 
-
-var wordChosen = ""
-
-var wins = ""
- 
-var losses = "" 
-
-var blanks = [];
-
-var numBlanks = 0;
-
-
-//for-loop to iterate through letters of the array
-// for(var i = 0; i < letters.length; i++){
-// 	console.log(letters[i])
-// }
-
-// function Mutants(x){
-// 	var lettersMutants = ["M", "U", "T", "A", "N", "S"];
-// 	if(lettersMutants.indexOf(x) > -1){
-// 	} else {
-// 		//add number to wrong letters list
-// 	}
-// }
-
-//grabs value from keys
-document.onkeyup = function(event){
-	var keyPressed = event.key;
-	console.log(keyPressed);
-}
-
-function computerChoice(){
-	wordChosen = wordBank[Math.floor(Math.random() * wordBank.length)];
-	console.log(wordChosen);
-	var x = document.getElementById("key-pressed");
-	x.innerHTML = wordChosen
-}
-computerChoice();
-
-//create a for loop to populate the underscores
-for (var i = 0; i < numBlanks.length; i++) {
-	blanks[i]
+function checkGameOver () {
+	return livesLeft === 0 || correct == 3;
 }
 
 
-// var myArrIndex = Math.floor(Math.random() * myArr.length);
-// 	myArr[myArrIndex];
+function isValidLetter(letter){
+	return alphabet.indexOF(letter) > -1;
+	}
 
 
-// How to get a random item from an array
-// var myArr = ["some", "cool", "stuff"];
-// 			// random value from 0 to 2 in the array
-// var myArrIndex = Math.floor(Math.random() * myArr.length);
-// myArr[myArrIndex];
+function updateWrongGuess() {
+	 livesLeft--;
+	 document.getElementById("lettersGuessed").innerHTML = lettersGuessed.join(" ");
+	 document.getElementById("user-lives").innerHTML = livesLeft;
+}
+
+function inititalizeGame(){
+	for (var i = 0; i < word.length; i++){
+		letterBlanks.push("_");
+	}
+	var blanks = document.getElementById("theWord");
+	blanks.innerHTML = letterBlanks.join(" ");
+	document.getElementById('user-lives').innerHTML = lives;
+}
+
+function replaceBlanks(letter) {
+	for (var i = 0; i < word.length; i++) {
+		if (word[i] === letter) {
+			letterBlanks[i] = letter;
+		}
+	}
+	document.getElementById("theWord").innerHTML = letterBlanks.join(" ");
+}
+
+startButton.addEventListener('click', function() {
+	inititalizeGame();
+
+	for (var i = 0; i < word.length + 10; i++) {
+		document.onkeyup = function(event) {
+			var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+			
+			if (word.includes(userGuess)) {
+				// alert("You guessed a correct letter");
+				replaceBlanks(userGuess);
+				correct = correct + 1;
+				if (correct == word.length) {
+						alert("You win!");
+				}
+			} else {
+				lives = lives - 1;
+				if (lives == 0) {
+						alert("You lose.");
+				} else {
+					// alert("Wrong letter. You have " + lives + " left.");
+					document.getElementById('lettersGuessed').innerHTML += userGuess;
+					document.getElementById('user-lives').innerHTML = lives;
+				}
+			}
+		}
+	}
+})
